@@ -1,25 +1,40 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import "./App.css";
 
-function App() {
+function GreetingsApp() {
+  const [name, setName] = useState("");
+  const [greeting, setGreeting] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (name.trim() !== "") {
+      setGreeting(`Hello, ${name}! Welcome to the Greetings App!`);
+    } else {
+      setGreeting("Please enter your name.");
+    }
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="greetings-container">
+      <h1 className="title">Welcome to the Greetings App!</h1>
+      <form onSubmit={handleSubmit}>
+        <label htmlFor="name" className="label">
+          Enter your name:
+        </label>
+        <input
+          type="text"
+          id="name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          className="input"
+        />
+        <button type="submit" className="button">
+          Submit
+        </button>
+      </form>
+      {greeting && <h2 className="greeting">{greeting}</h2>}
     </div>
   );
 }
 
-export default App;
+export default GreetingsApp;
